@@ -1,4 +1,4 @@
-package user;
+package models.user;
 
 import java.util.regex.Pattern;
 
@@ -6,13 +6,36 @@ public abstract class User {
     private static final Pattern EMAIL_PATTERN =
             Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
-    private String name , email , password;
-
-   public User(String name , String email , String password){
+    private String name , email , password , role;
+    private int id ;
+   public User(String role , String name , String email , String password){
         setName(name);
         setEmail(email);
         setPassword(password);
+        setRole(role);
    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+       if(id <= 0 ){
+           throw new IllegalArgumentException("Id must be > 0 ");
+       }
+        this.id = id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        if(role == null || role.trim().isEmpty()){
+            throw new IllegalArgumentException("Role cannot be empty");
+        }
+        this.role = role;
+    }
 
     public String getName() { return name; }
 
@@ -32,7 +55,7 @@ public abstract class User {
         this.email = email.trim();
     }
 
-    protected String getPassword() { return password; }
+    public String getPassword() { return password; }
 
     public void setPassword(String password) {
         if (password == null || password.length() < 8 || password.contains(" ")) {
@@ -40,8 +63,10 @@ public abstract class User {
         }
        this.password = password;
     }
-    public String displayInfo(){
-        return  "Name : " + getName() +
-                " | Email : " + getEmail();
+
+    public String toString(){
+       return "Id : " + getId() + " | Name : " + getName() +
+              " | Email : " + getEmail() +
+              " | Role : " + getRole() ;
     }
 }
