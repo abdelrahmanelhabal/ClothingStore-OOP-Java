@@ -1,97 +1,163 @@
-# ClothingStore-OOP-Java
+# ClothingStore-OOP-Java 
 
-##  Project Overview
+## Project Overview
 
-ClothingStore-OOP-Java is a Java console application simulating a clothing store system, built with Object-Oriented Programming (OOP) principles.
+ClothingStore-OOP-Java is a Java console application that simulates a
+clothing store system using Object-Oriented Programming (OOP)
+principles.
 
-This eaturesrepository represents Version 1 (v1.0). Future releases will expand functionality, improve design, and incorporate advanced features.
+Version **2.0** expands the original project by introducing **database
+integration, DAO pattern, and a service layer architecture**.\
+The application now uses **MySQL with JDBC** to store and retrieve
+product and user data.
 
-##  Project Goals
+## What's New in Version 2
 
-* Strengthen understanding of Java OOP fundamentals
-* Implement a modular, package-based project structure
-* Simulate a basic e-commerce workflow
-* Provide a scalable foundation for future enhancements
+-   MySQL database integration
+-   JDBC-based database connection
+-   DAO (Data Access Object) pattern
+-   Service layer for business logic
+-   External configuration using `config.properties`
+-   Improved project structure with layered architecture
+-   Custom DAO exception handling
 
-##  Project Structure
+## Project Structure
 
-```
-src/
-│
-├── app/
-│   └── Main.java
-├── cart/
-│   ├── Cart.java
-│   └── CartItem.java
-├── products/
-│   ├── Product.java
-│   ├── Clothing.java
-│   └── Accessory.java
-└── user/
-    ├── User.java
-    └── Customer.java
+    src/
+    │
+    ├── app/
+    │   └── Main.java
+    │
+    ├── dao/
+    │   ├── exception/
+    │   │   └── DaoException.java
+    │   │
+    │   ├── interfaces/
+    │   │   ├── ProductDAO.java
+    │   │   └── UserDAO.java
+    │   │
+    │   └── impl/
+    │       ├── ProductDAOImpl.java
+    │       └── UserDAOImpl.java
+    │
+    ├── database/
+    │   ├── DBConnection.java
+    │   └── sql_script.sql
+    │
+    ├── models/
+    │   ├── products/
+    │   │   ├── Product.java
+    │   │   ├── Clothing.java
+    │   │   └── Accessory.java
+    │   │
+    │   └── user/
+    │       ├── User.java
+    │       ├── Customer.java
+    │       └── Admin.java
+    │
+    ├── service/
+    │   ├── ProductService.java
+    │   └── UserService.java
+    │
+    └── resources/
+        └── config.properties
 
-```
+## How to Run
 
-##  Packages Description
+### 1. Clone the Repository
 
-###  Products
-
-* **Product (abstract)** – Base class with fields: `id`, `name`, `price`, `stock`, `category`.
-* **Clothing** – Extends `Product`; includes variations like size, color, brand.
-* **Accessory** – Extends `Product`; represents items like watches, hats, and other accessories.
-
-###  Cart
-
-* **CartItem** – Represents an individual product in the cart with `product`, `size`, `color`, and `quantity`.
-* **Cart** – Manages a collection of `CartItems`, supporting:
-
-  * `addItem()`
-  * `removeItem()`
-  * `calculateTotal()`
-  * `displayCart()`
-
-###  User
-
-* **User** – Base class for all users; designed for easy extension (e.g., admin, seller).
-* **Customer** – Extends `User`; owns a cart and interacts with products.
-
-##  How to Run
-
-1. Clone the repository:
-
-```bash
+``` bash
 git clone https://github.com/your-username/ClothingStore-OOP-Java.git
 ```
 
-2. Open the project in IntelliJ IDEA or any Java IDE.
-3. Run `Main.java` to start the console application.
+### 2. Open the Project
 
-## 🛠 OOP Concepts Demonstrated
+Open the project in **IntelliJ IDEA**.
 
-* **Encapsulation** – Protecting object data via getters/setters
-* **Inheritance** – Extending base classes (`Product`, `User`)
-* **Polymorphism** – Using overridden methods in child classes
-* **Abstraction** – Abstract base classes and interfaces
-* **Modular Packages** – Organized project structure for maintainability
+    File → Open → Select the project folder
 
-##  Current Version
+### 3. Configure Libraries in IntelliJ IDEA
 
-**v1.0 – Initial Release**
+This project uses external `.jar` libraries located in the **libs**
+folder:
 
-*  Basic product system
-*  Cart functionality
-*  Console-based testing
+-   mysql-connector-java-5.1.49.jar
+-   jbcrypt-0.4.jar
 
-##  Planned for Version 2
+Steps to add them:
 
-* Admin role with management capabilities
-* Product search and filtering
-* Order management system
-* File or database persistence
-* Discount and promo code handling
-* Enhanced exception handling and input validation
+1.  Go to **File → Project Structure**
+2.  Select **Modules**
+3.  Open the **Dependencies** tab
+4.  Click **+**
+5.  Choose **JARs or Directories**
+6.  Select the **libs** folder
+7.  Add both `.jar` files
+8.  Click **Apply → OK**
 
-##  Notes
 
-This project is intended for learning and practice purposes, ideal for students studying Java OOP, software design, and project structuring.
+### 4. Setup Database
+
+Install MySQL and create the database:
+
+``` sql
+CREATE DATABASE clothing_store;
+```
+
+Then run the SQL script located in:
+
+    database/sql_script.sql
+
+
+### 5. Configure Database Connection
+
+Edit:
+
+    resources/config.properties
+
+Example configuration:
+
+    db.url=jdbc:mysql://localhost:3306/clothing_store
+    db.user=root
+    db.password=yourpassword
+
+
+### 6. Run the Application
+
+Run the main class:
+
+    app/Main.java
+
+The console application will start.
+
+## Technologies Used
+
+-   Java
+-   JDBC
+-   MySQL
+-   Object-Oriented Programming
+-   DAO Design Pattern
+-   Layered Architecture
+
+
+## OOP Concepts Demonstrated
+
+-   **Encapsulation** -- using getters and setters
+-   **Inheritance** -- extending base classes like `Product` and `User`
+-   **Polymorphism** -- DAO implementations and overridden methods
+-   **Abstraction** -- abstract classes and interfaces
+-   **Separation of Concerns** -- models, DAO, services, and database
+    layers
+
+## Current Version
+
+**v2.0 -- Database Integrated Version**
+
+Features include: - MySQL persistence - DAO layer - Service layer -
+Configurable database connection - Improved error handling
+
+## Notes
+
+This project is intended for learning **Java backend architecture and
+OOP design principles** and demonstrates how a simple OOP project can
+evolve into a scalable layered system.
