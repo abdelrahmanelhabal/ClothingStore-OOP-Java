@@ -1,43 +1,63 @@
 package app;
 
-import cart.CartItem;
-import products.Accessory;
-import products.Clothing;
-import user.Customer;
+
+import models.products.Accessory;
+import models.products.Clothing;
+import models.products.Product;
+import models.user.Admin;
+import models.user.Customer;
+import models.user.User;
+import service.ProductService;
+import service.UserService;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Clothing tShirt = new Clothing("T-Shirt", "Clothing", 300,
-                50, "Black", 40, "Cotton", "Zara"
+        Product tShirt = new Clothing("T-Shirt",  300,
+                50, "Black", "Cotton", "Zara"
         );
 
-        Clothing jeans = new Clothing("Jeans", "Clothing", 700,
-                30, "Blue", 38, "Denim", "Zara"
+        Product jeans = new Clothing("Jeans", 700,
+                30, "Blue",  "Denim", "Zara"
         );
 
-        Accessory watch = new Accessory("Watch", "Accessory", 1200,
-                20, "Black", "Casio", "Digital"
+        Accessory watch = new Accessory("Watch", 1200.0, 20,
+                "Black", "Casio",  "Metal"
         );
 
-        Customer customer = new Customer(
-                "Elhabal",
-                "password",
-                "Elhabal@gmail.com",
-                3000
+        Accessory headphones = new Accessory("Headphones", 800.0,15,
+                "White", "Sony", "Plastic"
         );
 
-        System.out.println("Customer Created");
-        System.out.println(customer.displayInfo());
-        System.out.println("Balance: " + customer.getBalance());
-        System.out.println("----------------------------------");
+        User admin = new Admin("Abdelrahman Elhabal" , "Elhabal123","elhabal@gmail.com");
 
-        customer.addToCart(new CartItem(tShirt, "Black",40,1));
-        customer.addToCart(new CartItem(jeans, "blue",38,1));
-        customer.addToCart(new CartItem(watch, "Black",50,1));
+        User customer = new Customer( "Ali",  "Ali12345",  "Ali@gmail.com" );
 
-        System.out.println("\n===== CHECKOUT =====");
-        customer.checkout();
+        ProductService productService = new ProductService() ;
 
-        System.out.println("\nRemaining Balance: " + customer.getBalance());
+//        productService.saveProduct(tShirt);
+//        productService.saveProduct(jeans);
+//        productService.saveProduct(watch);
+//        productService.saveProduct(headphones);
+
+
+        UserService userService = new UserService();
+
+//        userService.saveUser(admin);
+//        userService.saveUser(customer);
+
+
+        List<Product> products = productService.getAllProducts();
+        System.out.println("Products");
+        for(Product product : products){
+            System.out.println(product.toString());
+        }
+        System.out.println("Users");
+        List<User> users = userService.getAllUsers();
+        for(User user : users){
+            System.out.println(user.toString());
+        }
+
     }
 }
